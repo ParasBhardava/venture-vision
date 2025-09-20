@@ -1,0 +1,28 @@
+ARG BASE_IMAGE=python
+ARG BASE_IMAGE_TAG=3.12-slim
+
+FROM $BASE_IMAGE:$BASE_IMAGE_TAG
+
+# Install system packages needed for development
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    git \
+    make \
+    procps \
+    libpq-dev \
+    gcc \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install uv
+RUN pip install --no-cache-dir uv
+
+WORKDIR /app
+COPY pyproject.toml uv.lock README.md ./
+COPY devops/scripts/entrypoint.sh /app/devops/scripts/entrypoint.sh
+
+# Install dependencies and set permissions in a single layer
+RUN uv sync --all-extras --dev \
+    && chmod +x /app/devops/scripts/entrypoint.sh
+
+ENTRYPOINT ["/app/devops/scripts/entrypoint.sh"]
