@@ -17,12 +17,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install uv
 RUN pip install --no-cache-dir uv
 
-WORKDIR /app
+WORKDIR /src
 COPY pyproject.toml uv.lock README.md ./
-COPY devops/scripts/entrypoint.sh /app/devops/scripts/entrypoint.sh
+COPY devops/scripts/entrypoint.sh /src/devops/scripts/entrypoint.sh
 
 # Install dependencies and set permissions in a single layer
 RUN uv sync --all-extras --dev \
-    && chmod +x /app/devops/scripts/entrypoint.sh
+    && chmod +x /src/devops/scripts/entrypoint.sh
 
-ENTRYPOINT ["/app/devops/scripts/entrypoint.sh"]
+ENTRYPOINT ["/src/devops/scripts/entrypoint.sh"]

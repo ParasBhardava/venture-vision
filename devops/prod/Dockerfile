@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install UV
 RUN pip install --no-cache-dir uv
 
-WORKDIR /app
+WORKDIR /src
 COPY pyproject.toml uv.lock README.md ./
 
 # Install dependencies
@@ -27,7 +27,7 @@ FROM $BASE_IMAGE:$BASE_IMAGE_TAG
 
 # Create a non-root user
 ARG USERNAME=appuser
-ARG SCRIPTS_PATH=/app/devops/scripts
+ARG SCRIPTS_PATH=/src/devops/scripts
 RUN useradd -m ${USERNAME}
 
 # Install runtime dependencies
@@ -36,15 +36,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /app
-COPY --from=builder /app .
+WORKDIR /src
+COPY --from=builder /src .
 COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
 
 # Make entrypoint script executable
 RUN chmod +x "${SCRIPTS_PATH}/entrypoint.sh"
 
 # Set correct permissions
-RUN chown -R ${USERNAME}:${USERNAME} /app && \
+RUN chown -R ${USERNAME}:${USERNAME} /src && \
     chown -R ${USERNAME}:${USERNAME} /usr/local/lib/python3.12/site-packages && \
     chown -R ${USERNAME}:${USERNAME} /usr/local/bin
 
