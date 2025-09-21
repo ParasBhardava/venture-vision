@@ -21,6 +21,5 @@ root_agent = Agent(
         AgentTool(agent=problem_market_size_agent),
         AgentTool(agent=unique_differentiator_finding_agent),
         AgentTool(agent=traction_and_metrics_agent),
-        AgentTool(agent=web_search_agent),
     ],
 )
