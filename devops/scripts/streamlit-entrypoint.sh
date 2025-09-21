@@ -5,6 +5,7 @@ echo "🔍 Starting Streamlit application..."
 
 # Wait for backend to be available (optional health check)
 echo "⏳ Waiting for backend to be ready..."
+echo "API_BASE_URL: ${API_BASE_URL:-http://localhost:8000}"
 while ! curl -f ${API_BASE_URL:-http://localhost:8000}/api/v1/health &>/dev/null; do
     echo "Backend not ready yet, waiting..."
     sleep 2
