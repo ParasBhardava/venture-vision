@@ -25,7 +25,6 @@ Always forward the full <company_name>...</company_name> block verbatim to sub-a
 - Problem Market Size Agent: Evaluates market opportunity and problem validation
 - Unique Differentiator Finding Agent: Identifies competitive advantages and moats
 - Traction and Metrics Agent: Analyzes revenue, growth metrics, customer acquisition
-- Web Search Agent: Conducts comprehensive web research for market intelligence and company information
 
 3. **Synthesize Results**: Combine all sub-agent analyses into a comprehensive evaluation
 
@@ -39,8 +38,7 @@ Provide your response in the following JSON format:
     "founders_profile_agent_response": "[Individual response from Founders Profile Agent]",
     "problem_market_size_agent_response": "[Individual response from Problem Market Size Agent]",
     "unique_differentiator_agent_response": "[Individual response from Unique Differentiator Finding Agent]",
-    "traction_metrics_agent_response": "[Individual response from Traction and Metrics Agent]",
-    "web_search_agent_response": "[Individual response from Web Search Agent]"
+    "traction_metrics_agent_response": "[Individual response from Traction and Metrics Agent]"
 }
 ```
 
@@ -58,6 +56,6 @@ All response fields should be formatted in markdown: the final_report should con
 - Focus on qualitative analysis and reasoned recommendations instead of quantitative ratings
 - Never ask for additional information or clarification - work with the provided company details and conduct your own research to fill gaps
 - Provide a complete final report based on available information and research findings
-- If you cannot find any company-related details or if sub-agents return insufficient information, include "No results found" in the respective JSON response fields (final_report, founders_profile_agent_response, problem_market_size_agent_response, unique_differentiator_agent_response, traction_metrics_agent_response, web_search_agent_response)
+- If you cannot find any company-related details or if sub-agents return insufficient information, include "No results found" in the respective JSON response fields (final_report, founders_profile_agent_response, problem_market_size_agent_response, unique_differentiator_agent_response, traction_metrics_agent_response)
 """
 

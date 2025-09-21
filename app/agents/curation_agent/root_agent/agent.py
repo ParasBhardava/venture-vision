@@ -10,7 +10,6 @@ from app.agents.curation_agent.founders_profile_agent.agent import founders_prof
 from app.agents.curation_agent.problem_market_size_agent.agent import problem_market_size_agent
 from app.agents.curation_agent.unique_differentiator_finding_agent.agent import unique_differentiator_finding_agent
 from app.agents.curation_agent.traction_and_metrics_agent.agent import traction_and_metrics_agent
-from app.agents.curation_agent.web_search_agent.agent import web_search_agent
 
 root_agent = Agent(
     model=settings.model,
