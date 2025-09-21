@@ -282,7 +282,7 @@ with st.sidebar:
     
     # API status check
     try:
-        health_response = requests.get(f"{API_BASE_URL}/api/v1/health/health", timeout=5)
+        health_response = requests.get(f"{API_BASE_URL}/api/v1/health", timeout=5)
         if health_response.status_code == 200:
             st.success("✅ API is online")
         else:
