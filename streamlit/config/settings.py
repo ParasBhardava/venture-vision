@@ -9,7 +9,7 @@ load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 # API configuration
 API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:5000")
-API_TIMEOUT = int(os.getenv("API_TIMEOUT", "120"))
+API_TIMEOUT = int(os.getenv("API_TIMEOUT", "1200"))  # Increased from 500 to 1200 seconds (20 minutes)
 
 # Streamlit configuration
 STREAMLIT_PORT = int(os.getenv("STREAMLIT_PORT", "8501"))
