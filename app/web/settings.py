@@ -71,6 +71,17 @@ class Settings(BaseSettings):
 
     # Admin API Key
     admin_api_key: str = Field(..., alias="ADMIN_API_KEY")
+    
+    # Gemini API Key
+    GOOGLE_API_KEY: str = Field(..., alias="GOOGLE_API_KEY")
+    google_genai_use_vertexai: bool = Field(False, alias="GOOGLE_GENAI_USE_VERTEXAI")
+    
+    # Gemini Model
+    model: str = Field("gemini-2.0-flash", alias="MODEL")
+    
+    # Parerallel API Key
+    parallel_api_key: str = Field(..., alias="PARALLEL_API_KEY")
+    
 
     model_config = SettingsConfigDict(
         env_file=".env",
