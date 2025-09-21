@@ -26,6 +26,6 @@ RUN uv sync --all-extras \
 COPY ./streamlit ./streamlit
 
 # Expose Streamlit's default port
-EXPOSE 8501
+EXPOSE 8080
 
 ENTRYPOINT ["/src/devops/scripts/streamlit-entrypoint.sh"] 
