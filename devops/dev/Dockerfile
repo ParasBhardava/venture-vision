@@ -36,12 +36,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
+# Install UV in final stage
+RUN pip install --no-cache-dir uv
+
 WORKDIR /src
 COPY --from=builder /src .
 COPY --from=builder /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
 
 # Make entrypoint script executable
-RUN chmod +x "${SCRIPTS_PATH}/entrypoint.sh"
+RUN chmod +x "/src/devops/scripts/entrypoint.sh"
 
 # Set correct permissions
 RUN chown -R ${USERNAME}:${USERNAME} /src && \
@@ -52,4 +55,4 @@ RUN chown -R ${USERNAME}:${USERNAME} /src && \
 USER ${USERNAME}
 
 # Use the entrypoint script
-ENTRYPOINT ["${SCRIPTS_PATH}/entrypoint.sh"]
+ENTRYPOINT ["/src/devops/scripts/entrypoint.sh"]
