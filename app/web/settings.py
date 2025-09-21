@@ -33,7 +33,7 @@ class Settings(BaseSettings):
     # Application settings
     application_name: str = Field("venture-vision-fastapi-backend", alias="APPLICATION_NAME")
     host: str = Field("127.0.0.1", alias="HOST")
-    port: int = Field(9000, alias="PORT")
+    port: int = Field(8000, alias="PORT")
 
     # CORS settings
     cors_allow_origins: str = Field("*", alias="CORS_ALLOW_ORIGINS")

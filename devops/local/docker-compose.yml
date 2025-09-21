@@ -14,9 +14,9 @@ services:
     networks:
       - ${NETWORK_NAME:-venture-vision-backend-network}
     ports:
-      - ${BACKEND_PORT:-5000}:${BACKEND_PORT:-5000}
+      - ${BACKEND_PORT:-8000}:${BACKEND_PORT:-8000}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:${BACKEND_PORT:-5000}/api/v1/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:${BACKEND_PORT:-8000}/api/v1/health"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -36,8 +36,8 @@ services:
       dockerfile: devops/local/Dockerfile.streamlit
     restart: always
     environment:
-      - API_BASE_URL=http://venture-vision-backend-server:${BACKEND_PORT:-5000}
-      - BACKEND_PORT=${BACKEND_PORT:-5000}
+      - API_BASE_URL=http://venture-vision-backend-server:${BACKEND_PORT:-8000}
+      - BACKEND_PORT=${BACKEND_PORT:-8000}
     volumes:
       - ${BACKEND_BASE_PATH:-../../}/streamlit:/src/streamlit
     networks:
