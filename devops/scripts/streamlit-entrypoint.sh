@@ -5,7 +5,7 @@ echo "🔍 Starting Streamlit application..."
 
 # Wait for backend to be available (optional health check)
 echo "⏳ Waiting for backend to be ready..."
-while ! curl -f http://venture-vision-backend-server:${BACKEND_PORT:-5000}/api/v1/health &>/dev/null; do
+while ! curl -f http://venture-vision-backend-server:${BACKEND_PORT:-8000}/api/v1/health &>/dev/null; do
     echo "Backend not ready yet, waiting..."
     sleep 2
 done
