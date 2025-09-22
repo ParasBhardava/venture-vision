@@ -256,7 +256,6 @@ st.markdown(
     """
     <div style='text-align: center; color: #666;'>
         <p>🚀 Venture Vision | AI-Powered Company Evaluation Platform</p>
-        <p>Built with Streamlit | Powered by Advanced AI Agents</p>
     </div>
     """, 
     unsafe_allow_html=True
@@ -277,14 +276,11 @@ with st.sidebar:
        - **Complete Report**: All sections combined
     """)
     
-    st.markdown("## ⚙️ Configuration")
-    st.markdown(f"**API Endpoint**: `{API_ENDPOINT}`")
-    
     # API status check
     try:
         health_response = requests.get(f"{API_BASE_URL}/api/v1/health", timeout=5)
         if health_response.status_code == 200:
-            st.success("✅ API is online")
+            pass
         else:
             st.error("❌ API is not responding")
     except:
