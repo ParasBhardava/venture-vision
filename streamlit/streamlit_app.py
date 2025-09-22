@@ -5,6 +5,7 @@ from typing import Dict, Any
 import streamlit as st
 import requests
 import json
+from loguru import logger
 from config.settings import API_BASE_URL
 
 # Configure page    
@@ -280,7 +281,7 @@ with st.sidebar:
     try:
         health_response = requests.get(f"{API_BASE_URL}/api/v1/health", timeout=5)
         if health_response.status_code == 200:
-            pass
+            logger.info(f"API health check successful - {API_BASE_URL}/api/v1/health")
         else:
             st.error("❌ API is not responding")
     except:
