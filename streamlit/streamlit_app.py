@@ -6,7 +6,7 @@ import streamlit as st
 import requests
 import json
 from loguru import logger
-from config.settings import API_BASE_URL
+from config.settings import API_BASE_URL, API_TIMEOUT, ADMIN_API_KEY
 
 # Configure page    
 st.set_page_config(
@@ -84,10 +84,13 @@ def make_api_request(company_name: str) -> Dict[str, Any]:
     """Make API request to evaluate company."""
     try:
         payload = {"company_name": company_name}
-        headers = {"Content-Type": "application/json"}
+        headers = {
+            "Content-Type": "application/json",
+            "X-Admin-API-Key": ADMIN_API_KEY
+        }
         
         with st.spinner(f"🔍 Analyzing {company_name}... This may take a few moments."):
-            response = requests.post(API_ENDPOINT, json=payload, headers=headers, timeout=120)
+            response = requests.post(API_ENDPOINT, json=payload, headers=headers, timeout=API_TIMEOUT)
         
         if response.status_code == 200:
             return response.json()

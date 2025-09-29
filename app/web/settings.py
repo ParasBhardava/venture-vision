@@ -73,14 +73,23 @@ class Settings(BaseSettings):
     admin_api_key: str = Field(..., alias="ADMIN_API_KEY")
     
     # Gemini API Key
-    GOOGLE_API_KEY: str = Field(..., alias="GOOGLE_API_KEY")
+    google_api_key: str = Field(..., alias="GOOGLE_API_KEY")
     google_genai_use_vertexai: bool = Field(False, alias="GOOGLE_GENAI_USE_VERTEXAI")
+    
+    # Model Provider
+    provider: str = Field("google", alias="PROVIDER")
     
     # Gemini Model
     model: str = Field("gemini-2.0-flash", alias="MODEL")
     
     # Parerallel API Key
     parallel_api_key: str = Field(..., alias="PARALLEL_API_KEY")
+    
+    # Exa API Key
+    exa_api_key: str = Field(..., alias="EXA_API_KEY")
+    
+    # Brightdata API Key
+    brightdata_api_key: str = Field(..., alias="BRIGHTDATA_API_KEY")
     
 
     model_config = SettingsConfigDict(

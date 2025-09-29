@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     procps \
     libpq-dev \
     gcc \
+    g++ \
     python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
