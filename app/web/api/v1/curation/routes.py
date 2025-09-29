@@ -7,23 +7,24 @@ Functions:
 import json
 import types
 import uuid
-from fastapi import APIRouter, status
+from app.core.security.dependancies import RequireAdminKey
+from fastapi import APIRouter, status, HTTPException
 from fastapi.responses import JSONResponse
 from app.core.schema.curation_schema import CompanyEvaluationRequest,  CompanyEvaluationResponse
 from google.genai import types
 
-from google.adk.sessions import InMemorySessionService
+# DatabaseSessionService is imported inline for better error handling
 from google.adk.runners import Runner
 from app.core.schema.api_schema import create_json_api_response
-from app.agents.curation_agent.root_agent.agent import root_agent
+from app.agents.curation_agent import root_agent
 from loguru import logger
 
 
 router = APIRouter(tags=["Curation"])
 
 
-@router.post("/")
-async def evaluate_company(request: CompanyEvaluationRequest) -> JSONResponse:
+@router.post("")
+async def evaluate_company(request: CompanyEvaluationRequest, _: RequireAdminKey) -> JSONResponse:
     """Evaluates a company using the root curation agent.
     
     This endpoint analyzes a company using specialized sub-agents that examine:
@@ -39,6 +40,7 @@ async def evaluate_company(request: CompanyEvaluationRequest) -> JSONResponse:
         JSONResponse: Comprehensive company evaluation report
     """
         
+    runner = None
     try:
         # Update the root agent with the specific company name
         company_name = request.company_name.strip()
@@ -46,7 +48,14 @@ async def evaluate_company(request: CompanyEvaluationRequest) -> JSONResponse:
             
         # Set up session_service for the conversation
         # This manages the conversation state and context
-        session_service = InMemorySessionService()
+        # Use DatabaseSessionService with SQLite for proper output_key handling
+        from google.adk.sessions import DatabaseSessionService
+        import os
+        
+        # Create SQLite database path
+        db_path = os.path.join(os.getcwd(), "adk_sessions.db")
+        sqlite_url = f"sqlite:///{db_path}"
+        session_service = DatabaseSessionService(sqlite_url)
         initial_session = {
             "company_name": company_name
         }
@@ -77,35 +86,45 @@ async def evaluate_company(request: CompanyEvaluationRequest) -> JSONResponse:
         new_message = types.Content(role="user", parts=[types.Part(text=company_name)])
         
         # Process the message through the agent system
-        # This triggers the agent orchestration flow
-        response = ("", "")
+        logger.info(f"Starting company evaluation for: {company_name}")
+        
+        response = None
         async for event in runner.run_async(
             user_id=USER_ID,
             session_id=SESSION_ID,
             new_message=new_message,
         ):
             logger.debug(f"Event: {event}")
-            # Return the final response when available
+            
             if event.is_final_response():
                 if event.content and event.content.parts:
-                    print(event.content.parts)
-                    response = str(event.content.parts[0].text)
-                    response = response.replace("```json", "").replace("```", "").strip()
-                    response = json.loads(response)
-                    
-            # Handle potential errors/escalations
-            elif event.actions and event.actions.escalate: 
-                response =  CompanyEvaluationResponse(
-                    company_name=company_name,
-                    final_report="No results found",
-                    founders_profile_agent_response="No results found",
-                    problem_market_size_agent_response="No results found",
-                    unique_differentiator_agent_response="No results found",
-                    traction_metrics_agent_response="No results found",
+                    response_text = str(event.content.parts[0].text)
+                    response_text = response_text.replace("```json", "").replace("```", "").strip()
+                    try:
+                        print("RESPONSE TEXT", response_text)
+                        response = json.loads(response_text)
+                        break
+                    except json.JSONDecodeError as json_error:
+                        logger.error(f"JSON parse error: {json_error}")
+                        raise HTTPException(
+                            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail=f"Agent response format error: {str(json_error)}"
+                        )
+                        
+            elif event.actions and event.actions.escalate:
+                logger.warning("Agent escalation occurred")
+                raise HTTPException(
+                    status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                    detail="Agent escalation - unable to process the company evaluation request"
                 )
-                break   
+                
+        # If we reach here without a response, it's an incomplete execution
+        if response is None:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Agent execution completed without generating a response"
+            )
         
-    
         print(response)
         return create_json_api_response(
             data=response,
@@ -114,6 +133,8 @@ async def evaluate_company(request: CompanyEvaluationRequest) -> JSONResponse:
         )
         
     except Exception as e:
+        logger.error(f"Error evaluating company: {e}")
+        logger.exception("Full error details:")  # This will log the full traceback
         return create_json_api_response(
             message="Failed to evaluate company",
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -122,4 +143,11 @@ async def evaluate_company(request: CompanyEvaluationRequest) -> JSONResponse:
                 "details": str(e)
             }]
         )
+    finally:
+        # Ensure runner is always closed
+        if runner:
+            try:
+                await runner.close()
+            except Exception as cleanup_error:
+                logger.error(f"Error closing runner: {cleanup_error}")
 
