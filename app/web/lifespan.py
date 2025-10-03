@@ -4,10 +4,11 @@ This module handles database connection setup and cleanup during application sta
 It provides connection pooling and proper resource management for database interactions.
 """
 
+import os
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 from datetime import datetime
-
+from google.adk.sessions import DatabaseSessionService
 from fastapi import FastAPI
 from loguru import logger
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
@@ -52,6 +53,13 @@ async def lifespan_setup(app: FastAPI) -> AsyncGenerator[None]:
     # Store in app state
     app.state.db_engine = engine
     app.state.db_session_factory = session_factory
+    
+    
+    # Create the session service
+    db_path = os.path.join(os.getcwd(), settings.db_path)
+    sqlite_url = f"sqlite:///{db_path}"
+    app.state.session_service = DatabaseSessionService(db_url=sqlite_url)
+
 
     startup_elapsed_time = (datetime.now() - startup_start_time).total_seconds()
     logger.info(f"Application initialization completed in {startup_elapsed_time:.2f}s")
