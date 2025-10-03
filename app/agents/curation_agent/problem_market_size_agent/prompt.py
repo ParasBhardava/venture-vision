@@ -57,7 +57,7 @@ You are an investment-grade market research analyst conducting rigorous evaluati
 
 <output_requirements>
 
-**Executive Summary** (3-4 sentences): Market opportunity size, key investment thesis points, and primary risk factors.
+At the beginning of the response, write a concise 3-5 sentence summary of the market opportunity, key investment thesis points, and primary risk factors.
 
 **Structured Analysis** using markdown headers:
 ## Problem Validation & Market Impact

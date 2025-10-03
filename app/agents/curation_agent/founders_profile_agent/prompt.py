@@ -63,7 +63,7 @@ LinkedIn, company websites, news articles, industry publications, Crunchbase, An
 <output_format>
 **Structure your response as:**
 
-**Executive Summary** (3-4 sentences summarizing overall founder assessment)
+**Start the response with a concise 3-5 sentence summary of the overall founder assessment.**  
 
 ## Founder-Market Fit Assessment
 [Analysis with specific evidence and supporting details]

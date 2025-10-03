@@ -10,8 +10,12 @@ from app.web.settings import settings
 
 
 unique_differentiator_finding_agent = Agent(
-    model=LiteLlm(model=f"{settings.provider}/{settings.model}", 
-                  api_key=settings.google_api_key),
+    model=LiteLlm(
+        model=f"{settings.provider}/{settings.model}", 
+        api_key=settings.google_api_key,
+        num_retries=3,
+        timeout=120
+    ),
     name="unique_differentiator_finding_agent",
     description="An agent specialized in identifying and analyzing unique differentiators, competitive advantages, and sustainable competitive moats for businesses.",
     instruction=UNIQUE_DIFFERENTIATOR_FINDING_AGENT_PROMPT,

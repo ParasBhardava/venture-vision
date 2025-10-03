@@ -10,7 +10,7 @@ from app.agents.curation_agent.founders_profile_agent.prompt import FOUNDERS_PRO
 
 founders_profile_agent = Agent(
     model=LiteLlm(model=f"{settings.provider}/{settings.model}", api_key=settings.google_api_key),
-    name="founders_profile_agent",
+    name="founders_profile_agent",  
     description="An agent specialized in researching and profiling startup founders and entrepreneurs.",
     instruction=FOUNDERS_PROFILE_AGENT_PROMPT,
     tools=[parallel_mcp_toolset],

@@ -79,7 +79,9 @@ Conduct thorough external research across these critical differentiation dimensi
 <output_requirements>
 Structure your analysis using markdown with these sections:
 
-**Executive Summary**: 3-4 sentences highlighting the most significant competitive advantages and overall differentiation strength.
+**Start the response with a concise 3-5 sentence summary of the company's most significant competitive advantages and overall differentiation strength.**  
+The summary should clearly state the top unique value propositions, the primary technology/IP or business-model advantage (if any),
+and the main vulnerabilities relevant to investment decisions.
 
 ## Core Innovation & Value Proposition Differentiators
 ## Technology & Intellectual Property Advantages  
