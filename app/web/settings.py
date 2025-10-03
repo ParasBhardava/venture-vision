@@ -33,7 +33,7 @@ class Settings(BaseSettings):
     # Application settings
     application_name: str = Field("venture-vision-fastapi-backend", alias="APPLICATION_NAME")
     host: str = Field("127.0.0.1", alias="HOST")
-    port: int = Field(9000, alias="PORT")
+    port: int = Field(8000, alias="PORT")
 
     # CORS settings
     cors_allow_origins: str = Field("*", alias="CORS_ALLOW_ORIGINS")
@@ -71,6 +71,28 @@ class Settings(BaseSettings):
 
     # Admin API Key
     admin_api_key: str = Field(..., alias="ADMIN_API_KEY")
+    
+    # Gemini API Key
+    google_api_key: str = Field(..., alias="GOOGLE_API_KEY")
+    google_genai_use_vertexai: bool = Field(False, alias="GOOGLE_GENAI_USE_VERTEXAI")
+    
+    # Model Provider
+    provider: str = Field("google", alias="PROVIDER")
+    
+    # Gemini Model
+    model: str = Field("gemini-2.0-flash", alias="MODEL")
+    
+    # Parerallel API Key
+    parallel_api_key: str = Field(..., alias="PARALLEL_API_KEY")
+    
+    # Exa API Key
+    exa_api_key: str = Field(..., alias="EXA_API_KEY")
+    
+    # Brightdata API Key
+    brightdata_api_key: str = Field(..., alias="BRIGHTDATA_API_KEY")
+    
+    # SQLite Database Path
+    db_path: str = Field("data/db.sqlite", alias="DB_PATH")
 
     model_config = SettingsConfigDict(
         env_file=".env",
