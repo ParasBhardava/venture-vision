@@ -75,7 +75,10 @@ Conduct comprehensive research across 5 core evaluation areas:
 <output_format>
 **Structure your analysis with:**
 
-**Executive Summary** (3-4 sentences): Overall traction assessment and key findings
+**Start the response with a concise 3-5 sentence summary of the company's overall traction and key findings.**  
+The summary should clearly state the overall traction health, the most important metrics (e.g., ARR/MRR trend, churn, LTV:CAC),
+and the primary investment-relevant takeaway.
+
 
 **Core Analysis Sections:**
 ## Financial Health & Unit Economics

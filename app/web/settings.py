@@ -91,6 +91,8 @@ class Settings(BaseSettings):
     # Brightdata API Key
     brightdata_api_key: str = Field(..., alias="BRIGHTDATA_API_KEY")
     
+    # SQLite Database Path
+    db_path: str = Field("data/db.sqlite", alias="DB_PATH")
 
     model_config = SettingsConfigDict(
         env_file=".env",
