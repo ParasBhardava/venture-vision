@@ -232,17 +232,7 @@ if st.session_state.evaluation_data:
             else:
                 st.warning("Traction & Metrics not available.")
         
-        with tab6:
-            if 'final_report' in evaluation_data:
-                display_analysis_section(
-                    "Complete Evaluation Report", 
-                    evaluation_data['final_report'], 
-                    "📄"
-                )
-            else:
-                st.warning("Complete Report not available.")
-            st.markdown("---")
-            
+        with tab6:    
             # Display all sections in a comprehensive format
             sections = [
                 ("📋 Final Report", evaluation_data.get('final_report', 'N/A')),

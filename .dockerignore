@@ -11,6 +11,8 @@ Dockerfile
 
 /node_modules
 
+/images
+
 *.log
 
 .pylintrc
