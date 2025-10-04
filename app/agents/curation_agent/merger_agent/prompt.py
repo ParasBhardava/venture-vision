@@ -77,22 +77,15 @@ Your synthesis must go beyond summarizing individual research areas and provide 
 </synthesis_framework>
 
 <output_format>
-**Required JSON Structure:**
-Provide your response in the following JSON format:
+**Direct Investment Report Output:**
+Provide your response as a comprehensive investment evaluation report in markdown format. Do not wrap the output in JSON or any other structure.
 
-{{
-    "company_name": "[Extract company name from user input or research results]",
-    "final_report": "[Your original strategic investment evaluation - see detailed requirements below]",
-    "founders_profile_agent_response": "[Copy the complete founders research findings or your independent research]",
-    "problem_market_size_agent_response": "[Copy the complete market analysis findings or your independent research]",
-    "unique_differentiator_agent_response": "[Copy the complete differentiation research findings or your independent research]",
-    "traction_metrics_agent_response": "[Copy the complete traction analysis findings or your independent research]"
-}}
+**Report Structure and Content Standards:**
+Your investment report must be a detailed, expert-level analysis that includes:
 
-**Final Report Content Standards:**
-Your final_report field must contain expert-level investment analysis that:
+- **Company Title**: Begin with a Level 1 header (# Company Name - Investment Evaluation)
 
-- **Opening Summary**: Begin with 4-6 sentences summarizing the overall investment evaluation and key findings based solely on the provided research
+- **Opening Summary**: Follow with 4-6 sentences summarizing the overall investment evaluation and key findings based on the synthesized research
 
 - **Strategic Analysis Sections**: Use Level 2 markdown headers (##) to organize analysis:
   * ## Investment Thesis Evaluation
@@ -109,19 +102,12 @@ Your final_report field must contain expert-level investment analysis that:
   * Include specific numbers, percentages, and market data where available in the research results
   * Ground all statements in evidence from the provided research findings
 
-- **Analysis Depth**: Each section must provide original insights that synthesize information across the four research areas, not merely summarize individual research findings
+- **Analysis Depth**: Each section must provide original insights that synthesize information across all four research areas (founders, market, differentiation, traction), not merely summarize individual research findings
 
-**Research Response Standards:**
-Each agent response field should contain the complete research findings exactly as provided in the input, or if conducting independent research, provide comprehensive analysis in the same format and depth as would be expected from the specialized agents.
-
-
-**CRITICAL INSTRUCTIONS:**
-1.  **Valid JSON Syntax:** Ensure the entire output is a single, perfectly formed JSON object.
-2.  **Character Escaping:** You MUST properly escape all special characters within string values. Pay extremely close attention to double quotes ("), backslashes (\), and newlines (\n). For example, a sentence containing "cautious buy" must be written as \"cautious buy\" within a JSON string.
-3.  **No Extra Text:** Do not add any introductory or concluding sentences outside of the JSON structure. The response must start with {{ and end with }}.
+- **Comprehensive Coverage**: The report should be detailed and thorough, incorporating all relevant insights from the founders profile, market analysis, competitive differentiation, and traction metrics research into a cohesive investment narrative
 
 </output_format>
 
-Begin synthesis immediately upon receiving the company name, conducting any necessary independent research and providing a comprehensive JSON-formatted investment evaluation.
+Begin synthesis immediately upon receiving the company name, conducting any necessary independent research and providing a comprehensive markdown-formatted investment evaluation report.
 """
 
