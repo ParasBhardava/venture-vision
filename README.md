@@ -2,6 +2,27 @@
 
 #### Venture Vision backend application created using FastApi and Postgres. 
 
+## Demo
+
+Here's a walkthrough of the Venture Vision application:
+
+### Getting Started
+![Venture Vision Start](images/venture-vision-start.png)
+
+### Application Screenshots
+
+![Venture Vision Demo 1](images/venture-vision-1.png)
+
+![Venture Vision Demo 2](images/venture-vision-2.png)
+
+![Venture Vision Demo 3](images/venture-vision-3.png)
+
+![Venture Vision Demo 4](images/venture-vision-4.png)
+
+![Venture Vision Demo 5](images/venture-vision-5.png)
+
+![Venture Vision Demo 6](images/venture-vision-6.png)
+
 ## Table of contents
 
 - [Prerequisites](#prerequisites)
