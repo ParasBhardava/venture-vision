@@ -79,22 +79,14 @@ async def call_agent_async(agent: Agent, query: str, session_id: str = None, use
             new_message=content
         )
         
-        # Get the final response from the agent
-        final_response = {
-            "final_report": "No final report generated",
-            "founders_profile_agent_response":  "No data available",
-            "problem_market_size_agent_response": "No data available",
-            "unique_differentiator_agent_response": "No data available",
-            "traction_metrics_agent_response": "No data available",
-            "merger_agent_response": "No data available"
-        }
-        
+        # Get the final response from the agent events
+        final_response_text = "No final report generated"
         
         async for event in events:
             logger.info(f"Received event: {type(event).__name__}")
             logger.info(f"Event: {event}")
             if event.content and event.content.parts:   
-                final_response = event.content.parts[0].text
+                final_response_text = event.content.parts[0].text
                 
 
         # Get updated session to see state after processing
@@ -105,7 +97,18 @@ async def call_agent_async(agent: Agent, query: str, session_id: str = None, use
         )        
         logger.info(f"State after processing: {session.state}")
 
-        final_response = final_response.replace("```json", "").replace("```", "")
+        # Extract results from session state and event response
+        # The final_report comes from the event response, other results from session state
+        state = session.state or {}
+        final_response = {
+            "company_name": state.get("company_name", "No data available"),
+            "final_report": final_response_text,
+            "founders_profile_agent_response": state.get("founders_profile_agent_result", "No data available"),
+            "problem_market_size_agent_response": state.get("problem_market_size_agent_result", "No data available"),
+            "unique_differentiator_agent_response": state.get("unique_differentiator_finding_agent_result", "No data available"),
+            "traction_metrics_agent_response": state.get("traction_and_metrics_agent_result", "No data available"),
+            "merger_agent_response": state.get("merger_agent_result", "No data available")
+        }
         logger.info(f"Final response: {final_response}")
         return final_response
     

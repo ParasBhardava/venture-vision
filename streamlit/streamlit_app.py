@@ -183,10 +183,9 @@ if st.session_state.evaluation_data:
         ])
         
         with tab1:
-            st.markdown("### 📋 Executive Summary & Final Report")
             if 'final_report' in evaluation_data:
                 display_analysis_section(
-                    "Final Report", 
+                    "Executive Summary & Final Report", 
                     evaluation_data['final_report'], 
                     "📋"
                 )
@@ -194,35 +193,54 @@ if st.session_state.evaluation_data:
                 st.warning("Executive summary not available.")
         
         with tab2:
-            display_analysis_section(
-                "Founders & Team Assessment", 
-                evaluation_data.get('founders_profile_agent_response', 'No data available'), 
-                "👥"
-            )
+            if 'founders_profile_agent_response' in evaluation_data:
+                display_analysis_section(
+                    "Founders & Team Assessment", 
+                    evaluation_data.get('founders_profile_agent_response', 'No data available'), 
+                    "👥"
+                )
+            else:
+                st.warning("Founders & Team assessment not available.")
         
         with tab3:
-            display_analysis_section(
+            if 'problem_market_size_agent_response' in evaluation_data:
+                display_analysis_section(
                 "Market Opportunity & Problem Validation", 
-                evaluation_data.get('problem_market_size_agent_response', 'No data available'), 
-                "🎯"
-            )
+                    evaluation_data.get('problem_market_size_agent_response', 'No data available'), 
+                    "🎯"
+                )
+            else:
+                st.warning("Market & Problem assessment not available.")
         
-        with tab4:
-            display_analysis_section(
+        with tab4:      
+            if 'unique_differentiator_agent_response' in evaluation_data:
+                display_analysis_section(
                 "Competitive Advantage & Differentiation", 
-                evaluation_data.get('unique_differentiator_agent_response', 'No data available'), 
-                "⚡"
-            )
+                    evaluation_data.get('unique_differentiator_agent_response', 'No data available'), 
+                    "⚡"
+                )
+            else:
+                st.warning("Competitive Advantage & Differentiation not available.")
         
         with tab5:
-            display_analysis_section(
+            if 'traction_metrics_agent_response' in evaluation_data:
+                display_analysis_section(
                 "Traction & Business Metrics", 
-                evaluation_data.get('traction_metrics_agent_response', 'No data available'), 
-                "📈"
-            )
+                    evaluation_data.get('traction_metrics_agent_response', 'No data available'), 
+                    "📈"
+                )
+            else:
+                st.warning("Traction & Metrics not available.")
         
         with tab6:
-            st.markdown("### 📄 Complete Evaluation Report")
+            if 'final_report' in evaluation_data:
+                display_analysis_section(
+                    "Complete Evaluation Report", 
+                    evaluation_data['final_report'], 
+                    "📄"
+                )
+            else:
+                st.warning("Complete Report not available.")
             st.markdown("---")
             
             # Display all sections in a comprehensive format
