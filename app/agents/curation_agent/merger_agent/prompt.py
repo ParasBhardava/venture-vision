@@ -19,16 +19,16 @@ You will attempt to receive research results from four specialized parallel rese
 **Available Research Results:**
 
 * **Founders Profile Research:**
-  {{founders_profile_agent_result | default("Research not available - will be conducted independently")}}
+  {{founders_profile_agent_result}}
 
 * **Problem & Market Size Analysis:**
-  {{problem_market_size_agent_result | default("Research not available - will be conducted independently")}}
+  {{problem_market_size_agent_result}}
 
 * **Unique Differentiator Research:**
-  {{unique_differentiator_finding_agent_result | default("Research not available - will be conducted independently")}}
+  {{unique_differentiator_finding_agent_result}}
 
 * **Traction & Metrics Analysis:**
-  {{traction_and_metrics_agent_result | default("Research not available - will be conducted independently")}}
+  {{traction_and_metrics_agent_result}}
 
 **Research Guidelines:**
 If any of the provided research results show "Research not available", you must conduct comprehensive research using your available tools to:
