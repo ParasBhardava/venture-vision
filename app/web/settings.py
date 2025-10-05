@@ -77,7 +77,7 @@ class Settings(BaseSettings):
     google_genai_use_vertexai: bool = Field(False, alias="GOOGLE_GENAI_USE_VERTEXAI")
     
     # Model Provider
-    provider: str = Field("google", alias="PROVIDER")
+    provider: str = Field(..., alias="PROVIDER")
     
     # Gemini Model
     model: str = Field("gemini-2.0-flash", alias="MODEL")
